@@ -40,7 +40,25 @@ Arguments:
 
 <h2> Sources & Data </h2>
 
-https://medium.com/swlh/the-dining-philosophers-problem-bbdb92e6b788
+Philosphers: \
+[The Dining Philosophers Problem ](https://medium.com/swlh/the-dining-philosophers-problem-bbdb92e6b788)
 
+Pthread: \
+[GeeksforGeeks](https://www.geeksforgeeks.org/multithreading-c-2/) \
+[cs_cmu_edu](https://www.cs.cmu.edu/afs/cs/academic/class/15492-f07/www/pthreads.html)
+
+
+Mutex: \
+[TheGeekStuff](https://www.thegeekstuff.com/2012/05/c-mutex-examples/) \
+[GeeksforGeeks](https://www.geeksforgeeks.org/mutex-lock-for-linux-thread-synchronization/)
 
 <h2> Planning </h2>
+
+* [ ] Gather info.
+* [ ] Write tests for pthread.
+* [ ] Write tests for mutex.
+* [ ] Write int main.
+* [ ] Write input validation.
+* [ ] Write main code.
+* [ ] Bug fixing.
+* [ ] Write documentation.
