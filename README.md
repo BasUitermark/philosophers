@@ -48,8 +48,16 @@ Compile by using make:
 ```c
 make
 ```
+Small test:
 
+```c
+make run small
+```
+Big test:
 
+```c
+make run big
+```
 
 ## :eyes: Usage
 
