@@ -21,7 +21,7 @@ HEADERS		= -I include
 
 #===============================================================================: Sourcefiles
 SRCS		= $(addprefix src/, $(addsuffix .c, \
-				test))
+				test2))
 
 #===============================================================================: Make commands
 all: message $(NAME)
