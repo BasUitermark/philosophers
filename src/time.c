@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   time.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/08/22 10:35:00 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/22 10:51:14 by buiterma      ########   odam.nl         */
+/*   Created: 2022/08/22 10:27:51 by buiterma      #+#    #+#                 */
+/*   Updated: 2022/08/22 10:33:53 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+long	time(void)
 {
-	t_philo	*philos;
+	struct timeval	time;
 
-	philos = NULL;
-	if (!validate_input(argc, argv))
-		return (EXIT_FAILURE);
-	if (!)
-	return (EXIT_SUCCESS);
+	gettimeofday(&time, NULL);
+	return (((time.tv_sec) * 1000) + ((time.tv_usec) / 1000));
 }

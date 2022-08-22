@@ -14,4 +14,19 @@
 # define TRUE 1
 # define FALSE 0
 
+typedef struct s_var
+{
+	int	counter;
+	pthread_mutex_t	lock;
+	pthread_t	tid[2];
+}	t_var;
+
+typedef struct	s_philo
+{
+	int		id;
+	long	timestap_eaten;
+}	t_philo;
+
+long	time(void);
+
 #endif

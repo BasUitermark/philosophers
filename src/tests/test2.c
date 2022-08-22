@@ -1,37 +1,43 @@
 #include "philo.h"
 
-static void	run_job(void *arg)
+static void	*run_job(void *arg)
 {
-	int	counter;
+	t_var	*var;
 
-	counter = &arg;
-	
+	var = (t_var *)arg;
+	pthread_mutex_lock(&var->lock);
+	var->counter += 1;
+	printf("Job %d started\n", var->counter);
+	sleep(5);
+	printf("Job %d finished\n", var->counter);
+	pthread_mutex_unlock(&var->lock);
+
 }
 
 int	main(void)
 {
-	int				i;
-	int				err;
-	pthread_t		tid[2];
-	pthread_mutex_t	lock;
+	int		i;
+	int		err;
+	t_var	var;
 
+	var.counter = 0;
 	i = 0;
-	if (pthread_mutex_init(&lock, NULL))
+	if (pthread_mutex_init(&var.lock, NULL))
 	{
 		printf("Mutex init failed!\n");
 		exit(EXIT_FAILURE);
 	}
 	while (i < 2)
 	{
-		err = pthread_create(&tid[i], NULL, &run_job, i);
+		err = pthread_create(&var.tid[i], NULL, &run_job, &var);
 		if (err)
 			printf("Can't create thread: [%s]\n", strerror(err));
 		i++;
 	}
 
-	pthread_join(tid[0], NULL);
-	pthread_join(tid[1], NULL);
-	pthread_mutex_destroy(&lock);
+	pthread_join(var.tid[0], NULL);
+	pthread_join(var.tid[1], NULL);
+	pthread_mutex_destroy(&var.lock);
 	return 0;
 }
 
