@@ -14,7 +14,16 @@
 # define TRUE 1
 # define FALSE 0
 
-typedef struct s_var
+typedef struct	s_data
+{
+	int	philo_amount;
+
+	int	time_to_die;
+	int	time_to_eat;
+	int	time_to_sleep;
+	int	meal_amount;
+}	t_data;
+typedef struct	s_var
 {
 	int	counter;
 	pthread_mutex_t	lock;
@@ -24,7 +33,8 @@ typedef struct s_var
 typedef struct	s_philo
 {
 	int		id;
-	long	timestap_eaten;
+	long	timestamp_eaten;
+	long	meals_eaten;
 }	t_philo;
 
 long	time(void);
