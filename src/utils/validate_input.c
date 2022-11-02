@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/27 23:41:01 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/02 21:50:50 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/02 21:52:04 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ bool	validate_input(int argc, const char **argv)
 	}
 	if (ft_atoi(argv[1]) > 200 || ft_atoi(argv[1]) < 1)
 	{
-		printf("Error: amount of allowed philosophers \
+		printf("Error: inputted amount of philosophers \
 				is not within boundaries");
 		return (false);
 	}
