@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   philo.h                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/11/02 15:39:09 by buiterma      #+#    #+#                 */
+/*   Updated: 2022/11/02 21:48:54 by buiterma      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 
@@ -25,6 +37,13 @@ typedef struct s_data
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
 }	t_data;
+
+typedef struct s_var
+{
+	int				counter;
+	pthread_mutex_t	lock;
+	pthread_t		tid[2];
+}	t_var;
 
 typedef struct s_philo
 {

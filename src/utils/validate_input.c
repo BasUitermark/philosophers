@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/27 23:41:01 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/02 20:44:46 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/02 21:50:50 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,9 @@ static bool	validate_num(char *str)
 {
 	size_t	i;
 
-	i = 0;
 	while (str[i])
 	{
 		if (ft_isdigit(str[i]))
-			return (false);
 		i++;
 	}
 	return (true);

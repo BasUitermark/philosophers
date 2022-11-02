@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   ft_atoi.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/08/22 10:35:00 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/02 21:49:27 by buiterma      ########   odam.nl         */
+/*   Created: 2022/11/02 15:35:44 by buiterma      #+#    #+#                 */
+/*   Updated: 2022/11/02 15:36:51 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+long	ft_atoi(const char *str)
 {
-	t_data	data;
-	t_philo	*philos;
-	t_data	data;
+	long	i;
+	long	min;
+	long	out;
 
-	philos = NULL;
-	if (!validate_input(argc, argv))
-		return (EXIT_FAILURE);
-	if (!init_data(&data, argv))
-		return (EXIT_FAILURE);
-	// execute sim
-	return (EXIT_SUCCESS);
+	i = 0;
+	min = 1;
+	out = 0;
+	while (ft_isspace(str[i]))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			min *= -1;
+		i++;
+	}
+	while (ft_isdigit(str[i]))
+	{
+		out = out * 10 + (str[i] - '0');
+		i++;
+	}
+	return (out * min);
 }
