@@ -11,32 +11,52 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-# define TRUE 1
-# define FALSE 0
-
-typedef struct	s_data
+typedef struct s_data
 {
-	int	philo_amount;
+	long			philo_amount;
 
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	meal_amount;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
+	long			meal_amount;
+
+	long			start_time;
+
+	pthread_mutex_t	*forks;
+	t_philo			*philos;
 }	t_data;
-typedef struct	s_var
-{
-	int	counter;
-	pthread_mutex_t	lock;
-	pthread_t	tid[2];
-}	t_var;
 
-typedef struct	s_philo
+typedef struct s_philo
 {
-	int		id;
-	long	timestamp_eaten;
-	long	meals_eaten;
+	int				id;
+	pthread_t		thread;
+	pthread_mutex_t	eat_lock;
+
+	long			timestamp_eaten;
+	long			meals_eaten;
 }	t_philo;
 
-long	time(void);
+typedef enum e_process
+{
+	EATING,
+	SLEEPING,
+	THINKING,
+}	t_process;
+
+//======== Utils =========//
+
+bool	validate_input(int argc, const char **argv);
+long	gettime(void);
+
+//======== Libft functions ==========//
+/* Because 42 just loves to make us copy over libft */
+/* instead of letting us include it in the project ¯\_(ツ)_/¯*/
+/* Yes I am salty about this :) */
+
+long	ft_atoi(const char *str);
+void	ft_bzero(void *s, size_t n);
+void	*ft_memset(void *b, int c, size_t len);
+void	*ft_calloc(size_t count, size_t size);
+int		ft_isdigit(int c);
 
 #endif

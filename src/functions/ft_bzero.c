@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   time.c                                             :+:    :+:            */
+/*   ft_bzero.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/08/22 10:27:51 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/21 21:41:11 by buiterma      ########   odam.nl         */
+/*   Created: 2022/09/09 18:51:31 by buiterma      #+#    #+#                 */
+/*   Updated: 2022/10/20 21:33:39 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long	gettime(void)
+void	ft_bzero(void *s, size_t n)
 {
-	struct timeval	time;
-
-	gettimeofday(&time, NULL);
-	return (((time.tv_sec) * 1000) + ((time.tv_usec) / 1000));
+	ft_memset(s, '\0', n);
 }

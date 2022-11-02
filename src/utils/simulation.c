@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   time.c                                             :+:    :+:            */
+/*   simulation.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/08/22 10:27:51 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/21 21:41:11 by buiterma      ########   odam.nl         */
+/*   Created: 2022/11/02 21:29:46 by buiterma      #+#    #+#                 */
+/*   Updated: 2022/11/02 21:47:18 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long	gettime(void)
-{
-	struct timeval	time;
+/*
+philo thread
+cycles through what the philo needs to do
+*/
 
-	gettimeofday(&time, NULL);
-	return (((time.tv_sec) * 1000) + ((time.tv_usec) / 1000));
+bool	simulation(t_data *data)
+{
+	pthread_create()
 }

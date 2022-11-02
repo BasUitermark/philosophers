@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   time.c                                             :+:    :+:            */
+/*   ft_memset.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/08/22 10:27:51 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/21 21:41:11 by buiterma      ########   odam.nl         */
+/*   Created: 2022/09/09 18:54:43 by buiterma      #+#    #+#                 */
+/*   Updated: 2022/10/20 21:43:34 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long	gettime(void)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	struct timeval	time;
+	size_t	i;
 
-	gettimeofday(&time, NULL);
-	return (((time.tv_sec) * 1000) + ((time.tv_usec) / 1000));
+	i = 0;
+	while (i < len)
+	{
+		((char *)b)[i] = (unsigned int)c;
+		i++;
+	}
+	return (b);
 }

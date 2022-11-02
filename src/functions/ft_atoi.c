@@ -1,21 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   time.c                                             :+:    :+:            */
+/*   ft_atoi.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/08/22 10:27:51 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/21 21:41:11 by buiterma      ########   odam.nl         */
+/*   Created: 2022/09/09 18:51:20 by buiterma      #+#    #+#                 */
+/*   Updated: 2022/10/20 21:33:57 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long	gettime(void)
+long	ft_atoi(const char *str)
 {
-	struct timeval	time;
+	long	i;
+	long	min;
+	long	out;
 
-	gettimeofday(&time, NULL);
-	return (((time.tv_sec) * 1000) + ((time.tv_usec) / 1000));
+	i = 0;
+	min = 1;
+	out = 0;
+	while (ft_isspace(str[i]))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			min *= -1;
+		i++;
+	}
+	while (ft_isdigit(str[i]))
+	{
+		out = out * 10 + (str[i] - '0');
+		i++;
+	}
+	return (out * min);
 }
