@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 15:39:09 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/02 21:48:54 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/15 13:43:15 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,28 +23,6 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-typedef struct s_data
-{
-	long			philo_amount;
-
-	long			time_to_die;
-	long			time_to_eat;
-	long			time_to_sleep;
-	long			meal_amount;
-
-	long			start_time;
-
-	pthread_mutex_t	*forks;
-	t_philo			*philos;
-}	t_data;
-
-typedef struct s_var
-{
-	int				counter;
-	pthread_mutex_t	lock;
-	pthread_t		tid[2];
-}	t_var;
-
 typedef struct s_philo
 {
 	int				id;
@@ -54,6 +32,21 @@ typedef struct s_philo
 	long			timestamp_eaten;
 	long			meals_eaten;
 }	t_philo;
+
+typedef struct s_data
+{
+	int				philo_amount;
+
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
+	int				meal_amount;
+
+	long			start_time;
+
+	t_philo			*philos;
+}	t_data;
+
 
 typedef enum e_process
 {
@@ -65,17 +58,23 @@ typedef enum e_process
 //======== Utils =========//
 
 bool	validate_input(int argc, const char **argv);
+bool	init_data(t_data *data, const char **argv);
 long	gettime(void);
 
 //======== Libft functions ==========//
 /* Because 42 just loves to make us copy over libft */
 /* instead of letting us include it in the project ¯\_(ツ)_/¯*/
-/* Yes I am salty about this :) */
+/* Yes I am salty about this c: */
 
 long	ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);
 void	*ft_memset(void *b, int c, size_t len);
 void	*ft_calloc(size_t count, size_t size);
 int		ft_isdigit(int c);
+int		ft_isspace(int c);
+
+//======== Test functions =======//
+
+void	print_input(t_data data);
 
 #endif

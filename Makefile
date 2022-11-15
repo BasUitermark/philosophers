@@ -20,10 +20,21 @@ MKDIR		= mkdir -p
 HEADERS		= -I include
 
 #===============================================================================: Sourcefiles
-SRCS		= $(addprefix src/, $(addsuffix .c, \
-				time \
-				
-				test2))
+SRCS		= 	$(addprefix src/, $(addsuffix .c, \
+					main \
+					time \
+				$(addprefix utils/, \
+					validate_input \
+					init_data) \
+				$(addprefix functions/, \
+					ft_atoi \
+					ft_bzero \
+					ft_calloc \
+					ft_isdigit \
+					ft_isspace \
+					ft_memset) \
+				$(addprefix testing/, \
+					print)))
 
 #===============================================================================: Make commands
 all: message $(NAME)
@@ -40,6 +51,9 @@ $(NAME): $(OBJS)
 #===============================================================================: C file compile
 objs/%.o: src/%.c
 	@$(MKDIR) objs
+	@$(MKDIR) objs/utils
+	@$(MKDIR) objs/functions
+	@$(MKDIR) objs/testing
 	@$(CC) -o $@ -c $< $(HEADERS)
 ifeq ($(DB),1)
 	@printf "$(GREEN)\r🔨Compiling: $(MAGENTA)$(notdir $<)$(GREEN)\r\e[35C[OK]\n$(RESET)"
