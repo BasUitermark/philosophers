@@ -34,7 +34,10 @@ SRCS		= 	$(addprefix src/, $(addsuffix .c, \
 					ft_isspace \
 					ft_memset) \
 				$(addprefix testing/, \
-					print)))
+					print) \
+				$(addprefix simulation/, \
+					execute \
+					threads)))
 
 #===============================================================================: Make commands
 all: message $(NAME)
@@ -54,6 +57,7 @@ objs/%.o: src/%.c
 	@$(MKDIR) objs/utils
 	@$(MKDIR) objs/functions
 	@$(MKDIR) objs/testing
+	@$(MKDIR) objs/simulation
 	@$(CC) -o $@ -c $< $(HEADERS)
 ifeq ($(DB),1)
 	@printf "$(GREEN)\r🔨Compiling: $(MAGENTA)$(notdir $<)$(GREEN)\r\e[35C[OK]\n$(RESET)"
