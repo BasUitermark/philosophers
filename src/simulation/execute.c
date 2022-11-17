@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   init_data.c                                        :+:    :+:            */
+/*   execute.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/20 21:58:18 by buiterma      #+#    #+#                 */
+/*   Created: 2022/11/17 12:08:59 by buiterma      #+#    #+#                 */
 /*   Updated: 2022/11/17 17:52:11 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-bool	init_data(t_data *data, const char **argv)
+void	*philo_sim(void *arg)
 {
-	data->start_time = gettime();
-	data->philo_amount = ft_atoi(argv[1]);
-	data->time_to_die = ft_atoi(argv[2]);
-	data->time_to_eat = ft_atoi(argv[3]);
-	data->time_to_sleep = ft_atoi(argv[4]);
-	if (argv[5])
-	{
-		data->meals = true;
-		data->meal_amount = ft_atoi(argv[5]);
-	}
-	data->meals = false;
-	data->start_time = gettime();
-	data->philos = ft_calloc(data->philo_amount, sizeof(t_philo));
-	if (!data->philos)
+	t_data	data;
+	t_philo	philo;
+
+	data = ((t_wrap *)arg->w_data);
+	philo = ((t_wrap *)arg->w_philo);
+	free ()
+	while ()
+	return (NULL);
+}
+
+bool	exec_sim(t_data data)
+{
+	if (!start_threads(data))
 		return (false);
-	
 	return (true);
 }
