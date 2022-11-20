@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 15:39:09 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/17 17:41:22 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/20 18:14:30 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,35 +23,44 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+# define RED		"\x1b[31m"
+# define GREEN		"\x1b[32m"
+# define YELLOW		"\x1b[33m"
+# define BLUE		"\x1b[34m"
+# define MAGENTA	"\x1b[35m"
+# define CYAN		"\x1b[36m"
+# define RESET		"\x1b[0m"
+
+# define BOLD		"\x1b[1m"
+# define ITALIC		"\x1b[3m"
+# define LINE		"\x1b[4m"
+# define BLINK		"\x1b[5m"
+# define CROSS		"\x1b[9m"
+
 typedef enum e_process
 {
+	GRABBING,
 	EATING,
 	SLEEPING,
 	THINKING,
 }	t_process;
 
-typedef struct s_wrap
+typedef struct s_forks
 {
-	t_data	w_data;
-	t_philo	w_philo;
-}	t_wrap;
-
+	pthread_mutex_t	mutex;
+}	t_forks;
 
 typedef struct s_philo
 {
-	int				id;
-	pthread_t		thread;
+	int			id;
+	pthread_t	thread;
 
-	long			timestamp_eaten;
-	long			meals_eaten;
-	t_process		state;
+	long		time_eaten;
+	long		meals_eaten;
+	t_process	state;
+	t_forks		left_fork;	
+	t_forks		right_fork;	
 }	t_philo;
-
-typedef struct s_forks
-{
-	pthread_mutex_t	fork_lock;
-	
-}	t_forks;
 
 typedef struct s_data
 {
@@ -71,6 +80,11 @@ typedef struct s_data
 	pthread_mutex_t	print_lock;
 }	t_data;
 
+typedef struct s_wrap
+{
+	t_data	w_data;
+	t_philo	w_philo;
+}	t_wrap;
 
 //======== Setup & Utils functions =========//
 
@@ -83,7 +97,13 @@ bool	exec_sim(t_data data);
 void	*philo_sim(void *arg);
 
 //======== Thread functions =========//
-bool	start_threads(t_data data);
+bool	p_create(pthread_t thread, t_wrap *wrap_data);
+bool	p_mutix_init(pthread_mutex_t *mutex);
+bool	p_mutex_lock(pthread_mutex_t *mutex);
+bool	p_mutex_unlock(pthread_mutex_t *mutex);
+
+//======== Philo Action functions =========//
+void	philo_grab_drop(t_data *data, t_philo *philo, bool grab);
 
 //======== Libft functions ==========//
 /* Because 42 just loves to make us copy over libft */
@@ -100,5 +120,6 @@ int		ft_isspace(int c);
 //======== Test functions =======//
 
 void	print_input(t_data data);
+void	print_action(t_data *data, t_philo *philo, t_process process);
 
 #endif

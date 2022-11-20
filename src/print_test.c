@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   print_test.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/08/22 10:35:00 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/20 14:57:00 by buiterma      ########   odam.nl         */
+/*   Created: 2022/11/20 16:20:41 by buiterma      #+#    #+#                 */
+/*   Updated: 2022/11/20 16:32:56 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
+#include <string.h>
 
-int	main(int argc, const char **argv)
+int	main(int argc, char const *argv[])
 {
-	t_data	data;
-	t_philo	*philos;
+	char	*color;
+	char	*type;
 
-	philos = NULL;
-	if (!validate_input(argc, argv))
-		return (EXIT_FAILURE);
-	if (!init_data(&data, argv))
-		return (EXIT_FAILURE);
-	print_input(data);
-	if (!exec_sim(data))
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	color = strdup(RED);
+	printf("%s%shello world\n", RED, BOLD);
+	printf("wut\n");
 }

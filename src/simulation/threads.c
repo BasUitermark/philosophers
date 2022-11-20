@@ -6,36 +6,36 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/17 12:09:29 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/17 17:05:58 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/20 15:57:22 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static bool	p_create(pthread_t thread, t_wrap *wrap_data)
+bool	p_mutix_init(pthread_mutex_t *mutex)
+{
+	if (!mutex || pthread_mutex_init(mutex, NULL) != 0)
+		return (false);
+	return (true);
+}
+
+bool	p_create(pthread_t thread, t_wrap *wrap_data)
 {
 	if (pthread_create(&thread, NULL, philo_sim, (void *)wrap_data) != 0)
 		return (false);
 	return (true);
 }
 
-bool	start_threads(t_data data)
+bool	p_mutex_lock(pthread_mutex_t *mutex)
 {
-	int		i;
-	t_wrap	*wrap_data;
+	if (!mutex || !pthread_mutex_lock(mutex) != 0)
+		return (false);
+	return (true);
+}
 
-	i = 0;
-	while (i < data.philo_amount)
-	{
-		wrap_data = malloc(sizeof(t_wrap));
-		if (!wrap_data)
-			return (false);
-		data.philos[i].id = i + 1;
-		wrap_data->w_data = data;
-		wrap_data->w_philo = data.philos[i];
-		if (!p_create(data.philos[i].thread, &wrap_data))
-			return (false);
-		i++;
-	}
+bool	p_mutex_unlock(pthread_mutex_t *mutex)
+{
+	if (!mutex || !pthread_mutex_unlock(mutex) != 0)
+		return (false);
 	return (true);
 }
