@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 15:39:09 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/20 18:14:30 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/21 16:40:24 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef enum e_process
 	EATING,
 	SLEEPING,
 	THINKING,
+	DIED
 }	t_process;
 
 typedef struct s_forks
@@ -82,8 +83,8 @@ typedef struct s_data
 
 typedef struct s_wrap
 {
-	t_data	w_data;
-	t_philo	w_philo;
+	t_data	*w_data;
+	t_philo	*w_philo;
 }	t_wrap;
 
 //======== Setup & Utils functions =========//
@@ -93,17 +94,22 @@ bool	init_data(t_data *data, const char **argv);
 long	gettime(void);
 
 //======== Simulation functions =========//
-bool	exec_sim(t_data data);
+bool	exec_sim(t_data *data);
 void	*philo_sim(void *arg);
+void	check_sim(t_data *data);
 
 //======== Thread functions =========//
-bool	p_create(pthread_t thread, t_wrap *wrap_data);
+bool	p_create(pthread_t *thread, t_wrap *wrap_data);
 bool	p_mutix_init(pthread_mutex_t *mutex);
 bool	p_mutex_lock(pthread_mutex_t *mutex);
 bool	p_mutex_unlock(pthread_mutex_t *mutex);
+void	p_join(t_data *data);
 
 //======== Philo Action functions =========//
-void	philo_grab_drop(t_data *data, t_philo *philo, bool grab);
+void	philo_eat(t_data *data, t_philo *philo);
+void	philo_sleep(t_data *data, t_philo *philo);
+void	philo_think(t_data *data, t_philo *philo);
+bool	print_action(t_data *data, t_philo *philo, t_process process);
 
 //======== Libft functions ==========//
 /* Because 42 just loves to make us copy over libft */
@@ -116,10 +122,5 @@ void	*ft_memset(void *b, int c, size_t len);
 void	*ft_calloc(size_t count, size_t size);
 int		ft_isdigit(int c);
 int		ft_isspace(int c);
-
-//======== Test functions =======//
-
-void	print_input(t_data data);
-void	print_action(t_data *data, t_philo *philo, t_process process);
 
 #endif

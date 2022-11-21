@@ -22,10 +22,12 @@ HEADERS		= -I include
 #===============================================================================: Sourcefiles
 SRCS		= 	$(addprefix src/, $(addsuffix .c, \
 					main \
-					time \
 				$(addprefix utils/, \
 					validate_input \
-					init_data) \
+					init_data \
+					time \
+					check_sim \
+					print) \
 				$(addprefix functions/, \
 					ft_atoi \
 					ft_bzero \
@@ -33,11 +35,10 @@ SRCS		= 	$(addprefix src/, $(addsuffix .c, \
 					ft_isdigit \
 					ft_isspace \
 					ft_memset) \
-				$(addprefix testing/, \
-					print) \
 				$(addprefix simulation/, \
 					execute \
-					threads)))
+					threads \
+					philo_actions)))
 
 #===============================================================================: Make commands
 all: message $(NAME)

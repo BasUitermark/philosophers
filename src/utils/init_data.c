@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/20 21:58:18 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/20 14:37:35 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/21 16:22:41 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static bool	read_args(t_data *data, const char **argv)
 {
+	data->meal_amount = 0;
+	data->meals = false;
 	data->start_time = gettime();
 	data->philo_amount = ft_atoi(argv[1]);
 	data->time_to_die = ft_atoi(argv[2]);
@@ -24,7 +26,6 @@ static bool	read_args(t_data *data, const char **argv)
 		data->meals = true;
 		data->meal_amount = ft_atoi(argv[5]);
 	}
-	data->meals = false;
 	data->start_time = gettime();
 	return (true);
 }
