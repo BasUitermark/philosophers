@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 15:39:09 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/23 16:33:52 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/23 18:53:56 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,9 @@ bool	p_mutex_unlock(pthread_mutex_t *mutex);
 void	p_join(t_data *data);
 
 //======== Philo Action functions =========//
-void	philo_eat(t_data *data, t_philo *philo);
-void	philo_sleep(t_data *data, t_philo *philo);
-void	philo_think(t_data *data, t_philo *philo);
+bool	philo_eat(t_data *data, t_philo *philo);
+bool	philo_sleep(t_data *data, t_philo *philo);
+bool	philo_think(t_data *data, t_philo *philo);
 bool	print_action(t_data *data, t_philo *philo, t_process process);
 
 //======== Libft functions ==========//

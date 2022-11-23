@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/17 12:08:59 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/23 12:37:03 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/23 18:54:59 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,14 @@ void	*philo_sim(void *arg)
 	data = ((t_wrap *)arg)->w_data;
 	philo = ((t_wrap *)arg)->w_philo;
 	free ((t_wrap *)arg);
+	if (philo->id % 2 == 0)
+		usleep(250);
 	while (data->sim_active)
 	{
-		philo_eat(data, philo);
-		philo_sleep(data, philo);
-		philo_think(data, philo);
+		if (!philo_eat(data, philo) || \
+			!philo_sleep(data, philo) || \
+			!philo_think(data, philo))
+			return (NULL);
 	}
 	return (NULL);
 }

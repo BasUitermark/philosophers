@@ -6,12 +6,22 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/14 11:31:30 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/23 17:19:10 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/23 18:46:39 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <locale.h>
+#include <time.h>
+#include <sys/time.h>
+
+typedef struct DateAndTime
+{
+	int	hour;
+	int	minutes;
+	int	seconds;
+	int	msec;
+}	t_DateAndTime;
 
 void	print_input(t_data data)
 {
@@ -25,10 +35,25 @@ void	print_input(t_data data)
 
 bool	print_action(t_data *data, t_philo *philo, t_process process)
 {
+	t_DateAndTime	date_and_time;
+	struct timeval	tv;
+	struct tm		*tm;
+
+	gettimeofday(&tv, NULL);
+	tm = localtime(&tv.tv_sec);
+	date_and_time.hour = tm->tm_hour;
+	date_and_time.minutes = tm->tm_min;
+	date_and_time.seconds = tm->tm_sec;
+	date_and_time.msec = (int)(tv.tv_usec / 1000);
 	if (!p_mutex_lock(&data->print_lock))
 		return (false);
-    setlocale(LC_NUMERIC, "");
-	printf(BOLD"%'lu [#%d]: "RESET, gettime(), philo->id);
+	printf(BOLD"%02d:%02d:%02d.%03d \x1b[34m[philo #%d]:	"RESET,
+		date_and_time.hour,
+		date_and_time.minutes,
+		date_and_time.seconds,
+		date_and_time.msec,
+		philo->id);
+	// printf(BOLD"%'lu [#%d]: "RESET, gettime(), philo->id);
 	if (process == GRABBING)
 		printf(YELLOW"is grabbing a fork\n"RESET);
 	else if (process == EATING)
