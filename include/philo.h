@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 15:39:09 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/21 16:40:24 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/23 16:33:52 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,6 @@ typedef enum e_process
 	DIED
 }	t_process;
 
-typedef struct s_forks
-{
-	pthread_mutex_t	mutex;
-}	t_forks;
-
 typedef struct s_philo
 {
 	int			id;
@@ -59,8 +54,8 @@ typedef struct s_philo
 	long		time_eaten;
 	long		meals_eaten;
 	t_process	state;
-	t_forks		left_fork;	
-	t_forks		right_fork;	
+	void		*left_fork;	
+	void		*right_fork;	
 }	t_philo;
 
 typedef struct s_data
@@ -77,7 +72,7 @@ typedef struct s_data
 	bool			sim_active;
 
 	t_philo			*philos;
-	t_forks			*fork;
+	pthread_mutex_t	*fork;
 	pthread_mutex_t	print_lock;
 }	t_data;
 

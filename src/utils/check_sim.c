@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/21 15:58:25 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/21 16:51:12 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/23 12:51:04 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ static void	check_death(t_data *data)
 	current = gettime();
 	while (i < data->philo_amount)
 	{
-		if (current - data->philos->time_eaten > data->time_to_die)
+		if (current - data->philos[i].time_eaten > data->time_to_die)
 		{
 			data->sim_active = false;
 			print_action(data, data->philos, DIED);
+			return ;
 		}
 		i++;
 	}

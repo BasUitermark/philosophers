@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/17 12:08:59 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/21 16:49:04 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/23 12:37:03 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	*philo_sim(void *arg)
 	free ((t_wrap *)arg);
 	while (data->sim_active)
 	{
-		printf("Meal amount: %ld/%d \n", data->philos->meals_eaten, data->meal_amount);
 		philo_eat(data, philo);
 		philo_sleep(data, philo);
 		philo_think(data, philo);
@@ -43,6 +42,7 @@ static bool	start_threads(t_data *data)
 		if (!wrap_data)
 			return (false);
 		data->philos[i].id = i + 1;
+		data->philos[i].time_eaten = gettime();
 		wrap_data->w_data = data;
 		wrap_data->w_philo = &data->philos[i];
 		if (!p_create(&data->philos[i].thread, wrap_data))

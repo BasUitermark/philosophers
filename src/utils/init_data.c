@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/20 21:58:18 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/21 16:22:41 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/23 16:37:16 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static bool	init_philo(t_data *data)
 	data->philos = ft_calloc(data->philo_amount, sizeof(t_philo));
 	if (!data->philos)
 		return (false);
-	data->fork = ft_calloc(data->philo_amount, sizeof(t_forks));
+	data->fork = ft_calloc(data->philo_amount, sizeof(pthread_mutex_t));
 	if (!data->fork)
 	{
 		free (data->philos);
@@ -46,14 +46,15 @@ static bool	init_philo(t_data *data)
 	}
 	while (i < data->philo_amount)
 	{
-		data->philos->id = i + 1;
-		data->philos->time_eaten = gettime();
-		if (!p_mutix_init(&data->fork[i].mutex))
+		if (!p_mutix_init(&data->fork[i]) || \
+			!p_mutix_init(&data->print_lock))
 		{
 			free (data->philos);
 			free (data->fork);
 			return (false);
 		}
+		if (data->meals)
+			data->philos[i].meals_eaten = 0;
 		i++;
 	}
 	return (true);
@@ -68,13 +69,13 @@ static void	attach_forks(t_data *data)
 	{
 		if (i == 0)
 		{
-			data->philos[i].right_fork = data->fork[data->philo_amount - 1];
-			data->philos->left_fork = data->fork[i];
+			data->philos[i].right_fork = &data->fork[data->philo_amount - 1];
+			data->philos[i].left_fork = &data->fork[i];
 		}
 		if (i != 0)
 		{
-			data->philos->right_fork = data->fork[i - 1];
-			data->philos->left_fork = data->fork[i];
+			data->philos[i].right_fork = &data->fork[i - 1];
+			data->philos[i].left_fork = &data->fork[i];
 		}
 		i++;
 	}

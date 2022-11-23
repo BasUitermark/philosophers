@@ -6,11 +6,12 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/14 11:31:30 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/21 17:16:03 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/23 17:19:10 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <locale.h>
 
 void	print_input(t_data data)
 {
@@ -24,9 +25,10 @@ void	print_input(t_data data)
 
 bool	print_action(t_data *data, t_philo *philo, t_process process)
 {
-	// if (!p_mutex_lock(&data->print_lock))
-	// 	return (false);
-	printf(BOLD"%lu [#%d]: "RESET, gettime(), philo->id);
+	if (!p_mutex_lock(&data->print_lock))
+		return (false);
+    setlocale(LC_NUMERIC, "");
+	printf(BOLD"%'lu [#%d]: "RESET, gettime(), philo->id);
 	if (process == GRABBING)
 		printf(YELLOW"is grabbing a fork\n"RESET);
 	else if (process == EATING)
@@ -37,7 +39,7 @@ bool	print_action(t_data *data, t_philo *philo, t_process process)
 		printf(CYAN"is thinking\n"RESET);
 	else if (process == DIED)
 		printf(RED"has died\n"RESET);
-	// if (!p_mutex_unlock(&data->print_lock))
-	// 	return (false);
+	if (!p_mutex_unlock(&data->print_lock))
+		return (false);
 	return (true);
 }

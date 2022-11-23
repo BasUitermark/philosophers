@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 21:37:05 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/21 16:19:54 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/23 16:51:31 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@ static void	philo_grab_drop(t_data *data, t_philo *philo)
 {
 	if (philo->id % 2 == 0)
 	{
-		p_mutex_lock(&philo->left_fork.mutex);
+		p_mutex_lock((pthread_mutex_t *)philo->right_fork);
 		print_action(data, philo, GRABBING);
-		p_mutex_lock(&philo->right_fork.mutex);
+		p_mutex_lock((pthread_mutex_t *)philo->left_fork);
 		print_action(data, philo, GRABBING);
 	}
 	else
 	{
-		p_mutex_lock(&philo->right_fork.mutex);
+		p_mutex_lock((pthread_mutex_t *)philo->left_fork);
 		print_action(data, philo, GRABBING);
-		p_mutex_lock(&philo->left_fork.mutex);
+		p_mutex_lock((pthread_mutex_t *)philo->right_fork);
 		print_action(data, philo, GRABBING);
 	}
 }
@@ -44,14 +44,14 @@ void	philo_eat(t_data *data, t_philo *philo)
 	if (!data->sim_active)
 		return ;
 	philo_grab_drop(data, philo);
+	print_action(data, philo, EATING);
 	philo->state = EATING;
 	philo->time_eaten = gettime();
-	print_action(data, philo, EATING);
-	set_time_to(data->time_to_eat / 1000);
+	set_time_to(data->time_to_eat);
 	if (data->meals)
-		philo->time_eaten += 1;
-	p_mutex_unlock(&philo->left_fork.mutex);
-	p_mutex_unlock(&philo->right_fork.mutex);
+		philo->meals_eaten += 1;
+	p_mutex_unlock((pthread_mutex_t *)philo->left_fork);
+	p_mutex_unlock((pthread_mutex_t *)philo->right_fork);
 }
 
 void	philo_sleep(t_data *data, t_philo *philo)
