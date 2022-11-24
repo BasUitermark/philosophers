@@ -1,5 +1,5 @@
 #===============================================================================: Filename
-NAME		= philosophers
+NAME		= philo
 
 #===============================================================================: Source to object conversion location
 OBJS		= $(subst src, objs, $(SRCS:.c=.o))
@@ -12,8 +12,8 @@ MAGENTA		= \033[1;35m
 RESET		= \033[0m
 
 #===============================================================================: Compile variables
-CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra
+CC			= cc
+CFLAGS		= -Wall -Werror -Wextra -fsanitize=thread
 MAKEFLAGS	= --no-print-directory
 RM			= rm -rf
 MKDIR		= mkdir -p

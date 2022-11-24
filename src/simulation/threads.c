@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/17 12:09:29 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/21 14:03:44 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/24 19:07:07 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,12 @@ bool	p_create(pthread_t *thread, t_wrap *wrap_data)
 	return (true);
 }
 
-bool	p_mutex_lock(pthread_mutex_t *mutex)
+bool	read_data(pthread_mutex_t *mutex, bool *address)
 {
-	if (!mutex || pthread_mutex_lock(mutex) != 0)
-		return (false);
-	return (true);
-}
+	bool	result;
 
-bool	p_mutex_unlock(pthread_mutex_t *mutex)
-{
-	if (!mutex || pthread_mutex_unlock(mutex) != 0)
-		return (false);
-	return (true);
+	pthread_mutex_lock(mutex);
+	result = *address;
+	pthread_mutex_unlock(mutex);
+	return (result);
 }

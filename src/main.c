@@ -6,11 +6,13 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/22 10:35:00 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/21 16:49:18 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/24 19:12:57 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+//make clean function and check where false what to clean;
 
 int	main(int argc, const char **argv)
 {
@@ -24,5 +26,6 @@ int	main(int argc, const char **argv)
 		return (EXIT_FAILURE);
 	check_sim(&data);
 	p_join(&data);
+	clean_data(&data);
 	return (EXIT_SUCCESS);
 }

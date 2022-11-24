@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/20 21:58:18 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/23 16:37:16 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/24 19:04:12 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static bool	read_args(t_data *data, const char **argv)
 {
 	data->meal_amount = 0;
 	data->meals = false;
-	data->start_time = gettime();
 	data->philo_amount = ft_atoi(argv[1]);
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
@@ -26,7 +25,6 @@ static bool	read_args(t_data *data, const char **argv)
 		data->meals = true;
 		data->meal_amount = ft_atoi(argv[5]);
 	}
-	data->start_time = gettime();
 	return (true);
 }
 
@@ -46,8 +44,7 @@ static bool	init_philo(t_data *data)
 	}
 	while (i < data->philo_amount)
 	{
-		if (!p_mutix_init(&data->fork[i]) || \
-			!p_mutix_init(&data->print_lock))
+		if (!p_mutix_init(&data->fork[i]))
 		{
 			free (data->philos);
 			free (data->fork);
@@ -65,18 +62,12 @@ static void	attach_forks(t_data *data)
 	size_t	i;
 
 	i = 0;
+	data->philos[i].right_fork = &data->fork[data->philo_amount - 1];
 	while (i < data->philo_amount)
 	{
-		if (i == 0)
-		{
-			data->philos[i].right_fork = &data->fork[data->philo_amount - 1];
-			data->philos[i].left_fork = &data->fork[i];
-		}
-		if (i != 0)
-		{
+		data->philos[i].left_fork = &data->fork[i];
+		if (i)
 			data->philos[i].right_fork = &data->fork[i - 1];
-			data->philos[i].left_fork = &data->fork[i];
-		}
 		i++;
 	}
 }
@@ -86,6 +77,8 @@ bool	init_data(t_data *data, const char **argv)
 	if (!read_args(data, argv))
 		return (false);
 	if (!init_philo(data))
+		return (false);
+	if (!p_mutix_init(&data->print_lock) || !p_mutix_init(&data->data_lock))
 		return (false);
 	attach_forks(data);
 	return (true);

@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 15:39:09 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/23 18:53:56 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/24 18:43:49 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+# define INTERVAL	100
+
+//========== Colors ============//
 # define RED		"\x1b[31m"
 # define GREEN		"\x1b[32m"
 # define YELLOW		"\x1b[33m"
@@ -37,14 +40,24 @@
 # define BLINK		"\x1b[5m"
 # define CROSS		"\x1b[9m"
 
-typedef enum e_process
+typedef enum e_proc
 {
-	GRABBING,
+	GRABBINGL,
+	GRABBINGR,
 	EATING,
 	SLEEPING,
 	THINKING,
-	DIED
-}	t_process;
+	DIED,
+	FINAL
+}	t_proc;
+
+typedef struct s_date_time
+{
+	int	hour;
+	int	minutes;
+	int	seconds;
+	int	msec;
+}	t_date_time;
 
 typedef struct s_philo
 {
@@ -53,9 +66,8 @@ typedef struct s_philo
 
 	long		time_eaten;
 	long		meals_eaten;
-	t_process	state;
-	void		*left_fork;	
-	void		*right_fork;	
+	void		*left_fork;
+	void		*right_fork;
 }	t_philo;
 
 typedef struct s_data
@@ -68,12 +80,12 @@ typedef struct s_data
 	bool			meals;
 	int				meal_amount;
 
-	long			start_time;
 	bool			sim_active;
 
 	t_philo			*philos;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	print_lock;
+	pthread_mutex_t	data_lock;
 }	t_data;
 
 typedef struct s_wrap
@@ -96,15 +108,14 @@ void	check_sim(t_data *data);
 //======== Thread functions =========//
 bool	p_create(pthread_t *thread, t_wrap *wrap_data);
 bool	p_mutix_init(pthread_mutex_t *mutex);
-bool	p_mutex_lock(pthread_mutex_t *mutex);
-bool	p_mutex_unlock(pthread_mutex_t *mutex);
 void	p_join(t_data *data);
+bool	read_data(pthread_mutex_t *mutex, bool *address);
 
 //======== Philo Action functions =========//
 bool	philo_eat(t_data *data, t_philo *philo);
 bool	philo_sleep(t_data *data, t_philo *philo);
 bool	philo_think(t_data *data, t_philo *philo);
-bool	print_action(t_data *data, t_philo *philo, t_process process);
+void	print_action(t_data *data, t_philo *philo, t_proc proc, bool death);
 
 //======== Libft functions ==========//
 /* Because 42 just loves to make us copy over libft */
