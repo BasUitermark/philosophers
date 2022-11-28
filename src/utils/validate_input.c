@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/27 23:41:01 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/14 13:28:19 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/28 13:14:44 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static bool	validate_num(const char *str)
 
 	while (str[i])
 	{
-		if (ft_isdigit(str[i]))
+		if (!ft_isdigit(str[i]))
+			return (false);
 		i++;
 	}
 	return (true);
@@ -32,6 +33,8 @@ bool	validate_input(int argc, const char **argv)
 	if (argc < 5 || argc > 6)
 	{
 		printf("Error: invalid amount of arguments\n");
+		printf("Try: [number_of_philosophers] [time_to_die] [time_to_eat]");
+		printf(" [time_to_sleep] optionally [number_of_meals]\n");
 		return (false);
 	}
 	while (argv[i])
@@ -45,8 +48,7 @@ bool	validate_input(int argc, const char **argv)
 	}
 	if (ft_atoi(argv[1]) > 200)
 	{
-		printf("Error: inputted amount of philosophers ");
-		printf("is not within boundaries\n");
+		printf("Error: exceeded max. amount of philosophers\n");
 		return (false);
 	}
 	return (true);

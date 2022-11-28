@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/17 12:08:59 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/24 19:08:23 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/28 11:58:22 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ bool	exec_sim(t_data *data)
 {
 	if (!start_threads(data))
 	{
-		free (data->philos);
-		free (data->fork);
+		cleanup(data, PRINT);
 		return (false);
 	}
 	return (true);

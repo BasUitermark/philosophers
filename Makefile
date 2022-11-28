@@ -27,7 +27,8 @@ SRCS		= 	$(addprefix src/, $(addsuffix .c, \
 					init_data \
 					time \
 					check_sim \
-					print) \
+					print \
+					cleanup) \
 				$(addprefix functions/, \
 					ft_atoi \
 					ft_bzero \

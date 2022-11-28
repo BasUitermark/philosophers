@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/20 21:58:18 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/24 19:04:12 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/28 12:04:42 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static bool	init_philo(t_data *data)
 	}
 	while (i < data->philo_amount)
 	{
-		if (!p_mutix_init(&data->fork[i]))
+		if (!p_mutex_init(&data->fork[i]))
 		{
 			free (data->philos);
 			free (data->fork);
@@ -78,8 +78,16 @@ bool	init_data(t_data *data, const char **argv)
 		return (false);
 	if (!init_philo(data))
 		return (false);
-	if (!p_mutix_init(&data->print_lock) || !p_mutix_init(&data->data_lock))
+	if (!p_mutex_init(&data->data_lock))
+	{
+		cleanup(data, DATA);
 		return (false);
+	}
+	if (!p_mutex_init(&data->print_lock))
+	{
+		cleanup(data, PRINT);
+		return (false);
+	}
 	attach_forks(data);
 	return (true);
 }

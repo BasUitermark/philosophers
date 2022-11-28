@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/14 11:31:30 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/24 18:56:31 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/28 12:22:04 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,6 @@ static t_date_time	convert_time(void)
 	return (date_time);
 }
 
-static int	calc_fork(t_data *data, t_philo *philo, t_proc proc)
-{
-	if (philo->id == 1 && proc == GRABBINGR)
-		return (data->philo_amount);
-	if (proc == GRABBINGR)
-		return (philo->id - 1);
-	if (proc == GRABBINGL)
-		return (philo->id);
-	return (0);
-}
-
 void	print_action(t_data *data, t_philo *philo, t_proc proc, bool death)
 {
 	t_date_time		dt;
@@ -62,9 +51,9 @@ void	print_action(t_data *data, t_philo *philo, t_proc proc, bool death)
 		printf(BOLD"%02d:%02d:%02d.%03d \x1b[34m[philo #%d]:	"RESET, \
 			dt.hour, dt.minutes, dt.seconds, dt.msec, philo->id);
 		if (proc == GRABBINGL)
-			printf(YELLOW"is grabbing the left fork %d\n"RESET, calc_fork(data, philo, proc));
+			printf(YELLOW"is grabbing the left fork\n"RESET);
 		else if (proc == GRABBINGR)
-			printf(YELLOW"is grabbing the right fork %d\n"RESET, calc_fork(data, philo, proc));
+			printf(YELLOW"is grabbing the right fork\n"RESET);
 		else if (proc == EATING)
 			printf(GREEN"is eating\n\n"RESET);
 		else if (proc == SLEEPING)
@@ -74,7 +63,8 @@ void	print_action(t_data *data, t_philo *philo, t_proc proc, bool death)
 		else if (proc == DIED)
 			printf(RED"has died\n"RESET);
 		else if (proc == FINAL)
-			printf(RED"reached final meal %ld/%d\n"RESET, philo->meals_eaten, data->meal_amount);
+			printf(RED"reached final meal %ld/%d\n"RESET, \
+					philo->meals_eaten, data->meal_amount);
 		pthread_mutex_unlock(&data->print_lock);
 	}
 }

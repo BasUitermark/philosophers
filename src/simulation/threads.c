@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/17 12:09:29 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/24 19:07:07 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/28 12:04:55 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	p_join(t_data *data)
 	}
 }
 
-bool	p_mutix_init(pthread_mutex_t *mutex)
+bool	p_mutex_init(pthread_mutex_t *mutex)
 {
 	if (!mutex || (pthread_mutex_init(mutex, NULL) != 0))
 		return (false);

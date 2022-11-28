@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   cleanup.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/08/22 10:35:00 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/28 12:10:02 by buiterma      ########   odam.nl         */
+/*   Created: 2022/11/28 11:38:12 by buiterma      #+#    #+#                 */
+/*   Updated: 2022/11/28 12:49:54 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-//make clean function and check where false what to clean;
-
-int	main(int argc, const char **argv)
+void	cleanup(t_data *data, t_clean n)
 {
-	t_data	data;
+	int	i;
 
-	if (!validate_input(argc, argv))
-		return (EXIT_FAILURE);
-	if (!init_data(&data, argv))
-		return (EXIT_FAILURE);
-	if (!exec_sim(&data))
-		return (EXIT_FAILURE);
-	check_sim(&data);
-	p_join(&data);
-	cleanup(&data, ALL);
-	system("leaks philo");
-	return (EXIT_SUCCESS);
+	i = 0;
+	if (n == STRUCT)
+	{
+		free (data->philos);
+		free (data->fork);
+	}
+	if (n >= DATA)
+		pthread_mutex_destroy(&data->data_lock);
+	if (n >= PRINT)
+		pthread_mutex_destroy(&data->print_lock);
+	while (n >= FORKS && i < data->philo_amount && data->fork)
+	{
+		pthread_mutex_destroy(&data->fork[i]);
+		i++;
+	}
+	free (data->philos);
+	free (data->fork);
 }
