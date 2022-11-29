@@ -13,7 +13,7 @@ RESET		= \033[0m
 
 #===============================================================================: Compile variables
 CC			= cc
-CFLAGS		= -Wall -Werror -Wextra -fsanitize=thread
+CFLAGS		= -Wall -Werror -Wextra
 MAKEFLAGS	= --no-print-directory
 RM			= rm -rf
 MKDIR		= mkdir -p
@@ -31,7 +31,6 @@ SRCS		= 	$(addprefix src/, $(addsuffix .c, \
 					cleanup) \
 				$(addprefix functions/, \
 					ft_atoi \
-					ft_bzero \
 					ft_calloc \
 					ft_isdigit \
 					ft_isspace \
@@ -43,10 +42,6 @@ SRCS		= 	$(addprefix src/, $(addsuffix .c, \
 
 #===============================================================================: Make commands
 all: message $(NAME)
-ifeq (run,$(firstword $(MAKECMDGOALS)))
-  RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
-  $(eval $(RUN_ARGS):;@:)
-endif
 
 #===============================================================================: Main compile
 $(NAME): $(OBJS)
@@ -64,11 +59,6 @@ objs/%.o: src/%.c
 ifeq ($(DB),1)
 	@printf "$(GREEN)\r🔨Compiling: $(MAGENTA)$(notdir $<)$(GREEN)\r\e[35C[OK]\n$(RESET)"
 endif
-
-#===============================================================================: Executable run command
-run: all
-	@printf "$(GREEN)Executing $(NAME)!\n$(RESET)\n"
-	@./$(NAME) $(RUN_ARGS)
 
 #===============================================================================: Build messages
 message:

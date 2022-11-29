@@ -6,13 +6,11 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/22 10:35:00 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/28 12:10:02 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/29 16:34:35 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-//make clean function and check where false what to clean;
 
 int	main(int argc, const char **argv)
 {
@@ -27,6 +25,5 @@ int	main(int argc, const char **argv)
 	check_sim(&data);
 	p_join(&data);
 	cleanup(&data, ALL);
-	system("leaks philo");
 	return (EXIT_SUCCESS);
 }

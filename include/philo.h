@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 15:39:09 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/28 13:26:28 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/28 14:30:00 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,7 +278,6 @@ void	print_action(t_data *data, t_philo *philo, t_proc proc, bool death);
 /* Yes I am salty about this c: */
 
 long	ft_atoi(const char *str);
-void	ft_bzero(void *s, size_t n);
 void	*ft_memset(void *b, int c, size_t len);
 void	*ft_calloc(size_t count, size_t size);
 int		ft_isdigit(int c);
